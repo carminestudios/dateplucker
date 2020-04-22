@@ -1,0 +1,40 @@
+{
+  "name": "@carminestudios/dateplucker",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.12.0",
+    "react": "^16.13.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-centered": "^5.3.18",
+    "@storybook/react": "^5.3.18",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.34",
+    "@types/styled-components": "^5.1.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "eslint-config-westlint-ts": "^2.1.1",
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.8.3"
+  },
+  "eslintConfig": {
+    "extends": "westlint-ts"
+  }
+}

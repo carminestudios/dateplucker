@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true,
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "lib": ["ES2016", "DOM"],
+    "types": ["react", "styled-components", "jest"]
+  },
+  "include": ["src", "./addons.d.ts"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
