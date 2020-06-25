@@ -1,25 +1,32 @@
 import { MonthConfig } from './Month';
-import { startOfWeek, endOfWeek, isSameMonth, eachDayOfInterval, isSameDay } from 'date-fns';
-import { WeekConfig } from './Week';
-import { useEffect, useState } from 'react';
+import { addMonths } from 'date-fns';
+import { useEffect, useState, useCallback } from 'react';
 import { getMonthConfig } from './utils';
 
-type Result = {
-  month: MonthConfig;
-  setCurrentDate: (newDate: Date) => void;
-};
+type Result = [
+  {
+    month: MonthConfig;
+    currentMonth: Date;
+    onCurrentMonthChange: (newMonth: Date) => void;
+  },
+  (newDate: Date) => void
+];
 
 export const useDateplucker = (initialDate?: Date): Result => {
-  const [currentDate, setCurrentDate] = useState(initialDate ?? new Date());
+  const [currentMonth, setCurrentMonth] = useState(initialDate ?? new Date());
   const [month, setMonthConfig] = useState<MonthConfig>([]);
 
   useEffect(() => {
-    const month = getMonthConfig(currentDate);
+    const month = getMonthConfig(currentMonth);
     setMonthConfig(month);
-  }, [currentDate]);
+  }, [currentMonth]);
 
-  return {
-    month,
-    setCurrentDate,
-  };
+  return [
+    {
+      month,
+      currentMonth,
+      onCurrentMonthChange: setCurrentMonth,
+    },
+    setCurrentMonth,
+  ];
 };

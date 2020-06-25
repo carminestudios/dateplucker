@@ -8,6 +8,7 @@ import { Header } from './Header';
 export interface DatepickerProps {
   currentMonth: Date;
   month: MonthConfig;
+  headerFormat?: string;
   onChange: OnDateChange;
   onCurrentMonthChange: OnDateChange;
   className?: string;
@@ -16,17 +17,29 @@ export interface DatepickerProps {
 export const Datepicker: FunctionComponent<DatepickerProps> = ({
   currentMonth,
   month,
+  headerFormat,
   onChange,
   onCurrentMonthChange,
   className,
+  children,
 }) => {
   return (
     <DatepickerContainer className={className}>
-      <Header currentMonth={currentMonth} onChange={onCurrentMonthChange} />
-      <Month month={month} onDateClick={onChange} />
+      {children ?? (
+        <>
+          <Header
+            currentMonth={currentMonth}
+            format={headerFormat}
+            onChange={onCurrentMonthChange}
+          />
+          <Month month={month} onDateClick={onChange} />
+        </>
+      )}
     </DatepickerContainer>
   );
 };
+
+Datepicker.displayName = 'Datepicker';
 
 const DatepickerContainer = styled.div`
   ${({ theme }) => theme?.datepicker?.container ?? defaultTheme.datepicker.container}

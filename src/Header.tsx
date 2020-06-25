@@ -7,14 +7,14 @@ export type OnMonthChange = (newMonth: Date) => void;
 
 export interface HeaderProps {
   currentMonth: Date;
-  monthFormat?: string;
+  format?: string;
   onChange: OnMonthChange;
   className?: string;
 }
 
 export const Header: FunctionComponent<HeaderProps> = ({
   currentMonth,
-  monthFormat = 'MMM',
+  format: monthFormat = 'MMM',
   onChange,
   className,
   children,

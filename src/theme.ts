@@ -1,4 +1,28 @@
-import { css, DefaultTheme } from 'styled-components';
+import { css, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components';
+
+export type DatepickerTheme = {
+  datepicker?: {
+    container?: FlattenSimpleInterpolation;
+  };
+  day?: {
+    container?: FlattenSimpleInterpolation;
+    disabled?: FlattenSimpleInterpolation;
+    current?: FlattenSimpleInterpolation;
+    outOfContext?: FlattenSimpleInterpolation;
+  };
+  week?: {
+    container?: FlattenSimpleInterpolation;
+    weekNr?: FlattenSimpleInterpolation;
+  };
+  month?: {
+    container?: FlattenSimpleInterpolation;
+  };
+  header?: {
+    container?: FlattenSimpleInterpolation;
+    changeMonthButton?: FlattenSimpleInterpolation;
+    monthName?: FlattenSimpleInterpolation;
+  };
+};
 
 export const theme: Required<DefaultTheme> = {
   datepicker: {
@@ -9,6 +33,9 @@ export const theme: Required<DefaultTheme> = {
   },
   day: {
     container: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 30px;
       height: 30px;
       border: 1px solid #3b3b3b;

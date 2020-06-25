@@ -45,10 +45,6 @@ export const Day: FunctionComponent<DayProps> = ({
 const DayContainer = styled.div.withConfig(omitProps('disabled', 'current'))<
   Pick<DayConfig, 'disabled' | 'current' | 'outOfContext'>
 >`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   ${({ theme }) => theme?.day?.container ?? defaultTheme.day.container};
   ${({ disabled, theme }) => (disabled ? theme?.day?.disabled ?? defaultTheme.day.disabled : null)}
   ${({ current, theme }) => (current ? theme?.day?.current ?? defaultTheme.day.current : null)}
