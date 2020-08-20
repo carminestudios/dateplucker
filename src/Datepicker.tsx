@@ -10,7 +10,7 @@ export interface DatepickerProps {
   currentMonth: Date;
   month: MonthConfig;
   headerFormat?: string;
-  onChange: OnDateChange;
+  onChange?: OnDateChange;
   onCurrentMonthChange: OnDateChange;
   className?: string;
 }
