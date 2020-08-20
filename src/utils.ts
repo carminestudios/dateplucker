@@ -21,7 +21,6 @@ export const getMonthConfig = (monthDate: Date) => {
   let weekStartDate = startOfWeek(startOfMonth(monthDate));
   const month: MonthConfig = [];
   do {
-    console.log(weekStartDate);
     const weekConfig: WeekConfig = eachDayOfInterval({
       start: weekStartDate,
       end: endOfWeek(weekStartDate),

@@ -6,6 +6,7 @@ import { MonthConfig, Month } from './Month';
 import { Header } from './Header';
 
 export interface DatepickerProps {
+  value?: Date;
   currentMonth: Date;
   month: MonthConfig;
   headerFormat?: string;
@@ -15,6 +16,7 @@ export interface DatepickerProps {
 }
 
 export const Datepicker: FunctionComponent<DatepickerProps> = ({
+  value,
   currentMonth,
   month,
   headerFormat,
@@ -32,7 +34,7 @@ export const Datepicker: FunctionComponent<DatepickerProps> = ({
             format={headerFormat}
             onChange={onCurrentMonthChange}
           />
-          <Month month={month} onDateClick={onChange} />
+          <Month month={month} value={value} onDateClick={onChange} />
         </>
       )}
     </DatepickerContainer>

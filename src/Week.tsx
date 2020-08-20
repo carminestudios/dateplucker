@@ -2,10 +2,12 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { theme as defaultTheme } from './theme';
 import { Day, DayConfig, OnDateChange } from './Day';
+import { isSameDay } from 'date-fns';
 
 export type WeekConfig = Array<DayConfig>;
 
 export interface WeekProps {
+  value?: Date;
   week?: WeekConfig;
   withWeekNumbers?: boolean;
   onDateClick?: OnDateChange;
@@ -13,6 +15,7 @@ export interface WeekProps {
 }
 
 export const Week: FunctionComponent<WeekProps> = ({
+  value,
   week,
   withWeekNumbers,
   onDateClick,
@@ -25,7 +28,13 @@ export const Week: FunctionComponent<WeekProps> = ({
         <>
           {withWeekNumbers ? <WeekNr></WeekNr> : null}
           {week?.map(({ date, ...props }) => (
-            <Day key={date.getTime()} date={date} onClick={onDateClick} {...props} />
+            <Day
+              key={date.getTime()}
+              date={date}
+              onClick={onDateClick}
+              isSelected={value && isSameDay(value, date)}
+              {...props}
+            />
           ))}
         </>
       )}

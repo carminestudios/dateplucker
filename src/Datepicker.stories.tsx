@@ -5,6 +5,7 @@ import { Datepicker } from './Datepicker';
 import { getMonthConfig } from './utils';
 import { useDateplucker } from './hooks';
 import { theme as defaultTheme } from './theme';
+import { subDays } from 'date-fns';
 
 export default { title: 'Datepicker', component: Datepicker, displayName: 'Datepicker' };
 
@@ -12,6 +13,7 @@ export const Normal = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   return (
     <Datepicker
+      value={subDays(currentMonth, 1)}
       currentMonth={currentMonth}
       month={getMonthConfig(currentMonth)}
       onCurrentMonthChange={setCurrentMonth}
@@ -22,7 +24,13 @@ export const Normal = () => {
 
 export const WithHook = () => {
   const [datepickerProps] = useDateplucker();
-  return <Datepicker {...datepickerProps} onChange={action('date change')} />;
+  return (
+    <Datepicker
+      {...datepickerProps}
+      value={subDays(new Date(), 1)}
+      onChange={action('date change')}
+    />
+  );
 };
 
 const customTheme: DefaultTheme = {

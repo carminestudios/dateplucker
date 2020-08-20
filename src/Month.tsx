@@ -8,6 +8,7 @@ import { OnDateChange } from './Day';
 export type MonthConfig = Array<WeekConfig>;
 
 export interface MonthProps {
+  value?: Date
   month?: MonthConfig;
   withWeekNumbers?: boolean;
   className?: string;
@@ -15,6 +16,7 @@ export interface MonthProps {
 }
 
 export const Month: FunctionComponent<MonthProps> = ({
+  value,
   month,
   withWeekNumbers,
   className,
@@ -27,6 +29,7 @@ export const Month: FunctionComponent<MonthProps> = ({
         month?.map((week) => (
           <Week
             key={getWeek(week[0].date)}
+            value={value}
             week={week}
             withWeekNumbers={withWeekNumbers}
             onDateClick={onDateClick}

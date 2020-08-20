@@ -12,8 +12,12 @@ type Result = [
   (newDate: Date) => void
 ];
 
-export const useDateplucker = (initialDate?: Date): Result => {
-  const [currentMonth, setCurrentMonth] = useState(initialDate ?? new Date());
+export interface UseDatePluckerProps {
+  currentMonth?: Date;
+}
+
+export const useDateplucker = (options: UseDatePluckerProps = {}): Result => {
+  const [currentMonth, setCurrentMonth] = useState(options.currentMonth ?? new Date());
   const [month, setMonthConfig] = useState<MonthConfig>([]);
 
   useEffect(() => {

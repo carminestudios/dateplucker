@@ -9,6 +9,7 @@ export type DatepickerTheme = {
     disabled?: FlattenSimpleInterpolation;
     current?: FlattenSimpleInterpolation;
     outOfContext?: FlattenSimpleInterpolation;
+    isSelected?: FlattenSimpleInterpolation;
   };
   week?: {
     container?: FlattenSimpleInterpolation;
@@ -55,6 +56,9 @@ export const theme: Required<DefaultTheme> = {
       opacity: 0.4;
       background-color: #ccc;
     `,
+    isSelected: css`
+      background-color: rgba(255, 165, 0, 1);
+    `
   },
 
   week: {

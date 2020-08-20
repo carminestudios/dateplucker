@@ -9,6 +9,7 @@ export type OnDateChange = (date: Date) => void;
 export type DayConfig = {
   date: Date;
   disabled?: boolean;
+  isSelected?: boolean;
   current?: boolean;
   outOfContext?: boolean;
 };
@@ -21,6 +22,7 @@ export interface DayProps extends DayConfig {
 export const Day: FunctionComponent<DayProps> = ({
   date,
   disabled,
+  isSelected,
   current,
   outOfContext,
   className,
@@ -35,6 +37,7 @@ export const Day: FunctionComponent<DayProps> = ({
       disabled={disabled}
       outOfContext={outOfContext}
       current={current}
+      isSelected={isSelected}
       role="button"
       onClick={handleClick}>
       {children ?? getDate(date)}
@@ -42,11 +45,12 @@ export const Day: FunctionComponent<DayProps> = ({
   );
 };
 
-const DayContainer = styled.div.withConfig(omitProps('disabled', 'current'))<
-  Pick<DayConfig, 'disabled' | 'current' | 'outOfContext'>
+const DayContainer = styled.div.withConfig(omitProps('disabled', 'current', 'isSelected'))<
+  Pick<DayConfig, 'disabled' | 'current' | 'outOfContext' | 'isSelected'>
 >`
   ${({ theme }) => theme?.day?.container ?? defaultTheme.day.container};
   ${({ disabled, theme }) => (disabled ? theme?.day?.disabled ?? defaultTheme.day.disabled : null)}
   ${({ current, theme }) => (current ? theme?.day?.current ?? defaultTheme.day.current : null)}
   ${({ outOfContext, theme }) => (outOfContext ? theme?.day?.outOfContext ?? defaultTheme.day.outOfContext : null)}
+  ${({ isSelected, theme }) => (isSelected ? theme?.day?.isSelected ?? defaultTheme.day.isSelected : null)}
 `;
