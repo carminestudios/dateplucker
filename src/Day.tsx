@@ -39,7 +39,7 @@ export const Day: FunctionComponent<DayProps> = ({
       current={current}
       isSelected={isSelected}
       role="button"
-      onClick={handleClick}>
+      onClick={!disabled ? handleClick : undefined}>
       {children ?? getDate(date)}
     </DayContainer>
   );

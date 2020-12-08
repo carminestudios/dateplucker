@@ -5,7 +5,7 @@ import { Datepicker } from './Datepicker';
 import { getMonthConfig } from './utils';
 import { useDateplucker } from './hooks';
 import { DatepickerTheme, theme as defaultTheme } from './theme';
-import { subDays } from 'date-fns';
+import { getDay, subDays } from 'date-fns';
 
 export default { title: 'Datepicker', component: Datepicker, displayName: 'Datepicker' };
 
@@ -28,6 +28,19 @@ export const WithHook = () => {
     <Datepicker
       {...datepickerProps}
       value={subDays(new Date(), 1)}
+      onChange={action('date change')}
+    />
+  );
+};
+
+export const WithDisabledDates = () => {
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  return (
+    <Datepicker
+      value={subDays(currentMonth, 1)}
+      currentMonth={currentMonth}
+      month={getMonthConfig(currentMonth, { isDateAllowed: (date: Date) => getDay(date) === 1})}
+      onCurrentMonthChange={setCurrentMonth}
       onChange={action('date change')}
     />
   );

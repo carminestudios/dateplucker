@@ -50,6 +50,7 @@ export const theme: Required<DatepickerTheme> = {
     `,
     disabled: css`
       opacity: 0.4;
+      cursor: not-allowed;
     `,
     current: css`
       background-color: #83eeff;
