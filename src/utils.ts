@@ -11,19 +11,20 @@ import {
   startOfMonth,
 } from 'date-fns';
 import { WeekConfig } from './Week';
+import { WeekStartsOn } from './types';
 
 export const omitProps = (...props: Array<string | number>): any => ({
   shouldForwardProp: (prop: string | number) => !props.includes(prop),
 });
 
-export const getMonthConfig = (monthDate: Date) => {
+export const getMonthConfig = (monthDate: Date, weekStartsOn: WeekStartsOn = 1) => {
   const today = new Date();
-  let weekStartDate = startOfWeek(startOfMonth(monthDate));
+  let weekStartDate = startOfWeek(startOfMonth(monthDate), { weekStartsOn });
   const month: MonthConfig = [];
   do {
     const weekConfig: WeekConfig = eachDayOfInterval({
       start: weekStartDate,
-      end: endOfWeek(weekStartDate),
+      end: endOfWeek(weekStartDate, { weekStartsOn }),
     }).map((date) => ({
       date,
       current: isSameDay(today, date),

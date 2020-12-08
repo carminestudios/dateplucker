@@ -19,13 +19,15 @@ export type DatepickerTheme = {
     container?: FlattenSimpleInterpolation;
   };
   header?: {
-    container?: FlattenSimpleInterpolation;
+    topContainer?: FlattenSimpleInterpolation;
     changeMonthButton?: FlattenSimpleInterpolation;
     monthName?: FlattenSimpleInterpolation;
+    dayContainer?: FlattenSimpleInterpolation;
+    day?: FlattenSimpleInterpolation;
   };
 };
 
-export const theme: Required<DefaultTheme> = {
+export const theme: Required<DatepickerTheme> = {
   datepicker: {
     container: css`
       display: flex;
@@ -58,7 +60,7 @@ export const theme: Required<DefaultTheme> = {
     `,
     isSelected: css`
       background-color: rgba(255, 165, 0, 1);
-    `
+    `,
   },
 
   week: {
@@ -71,7 +73,7 @@ export const theme: Required<DefaultTheme> = {
   },
   month: { container: css`` },
   header: {
-    container: css`
+    topContainer: css`
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -93,6 +95,19 @@ export const theme: Required<DefaultTheme> = {
       display: flex;
       align-items: center;
       justify-content: center;
+    `,
+    dayContainer: css`
+      display: flex;
+    `,
+
+    day: css`
+      font-size: 12px;
+      font-weight: 600;
+      width: 31px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 2px;
     `,
   },
 };

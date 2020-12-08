@@ -4,7 +4,7 @@ import { DefaultTheme, css, ThemeProvider } from 'styled-components';
 import { Datepicker } from './Datepicker';
 import { getMonthConfig } from './utils';
 import { useDateplucker } from './hooks';
-import { theme as defaultTheme } from './theme';
+import { DatepickerTheme, theme as defaultTheme } from './theme';
 import { subDays } from 'date-fns';
 
 export default { title: 'Datepicker', component: Datepicker, displayName: 'Datepicker' };
@@ -33,10 +33,10 @@ export const WithHook = () => {
   );
 };
 
-const customTheme: DefaultTheme = {
+const customTheme: DatepickerTheme = {
   header: {
-    container: css`
-      ${defaultTheme.header.container}
+    topContainer: css`
+      ${defaultTheme.header.topContainer}
       background-color: hotpink;
     `,
   },

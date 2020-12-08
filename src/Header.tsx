@@ -1,24 +1,29 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import styled from 'styled-components';
 import { theme as defaultTheme } from './theme';
-import { addMonths, format } from 'date-fns';
+import { addMonths, eachDayOfInterval, endOfWeek, format, getWeek, startOfWeek } from 'date-fns';
+import { WeekStartsOn } from './types';
 
 export type OnMonthChange = (newMonth: Date) => void;
 
 export interface HeaderProps {
   currentMonth: Date;
   format?: string;
+  weekStartsOn?: WeekStartsOn;
   onChange: OnMonthChange;
   className?: string;
 }
 
 export const Header: FunctionComponent<HeaderProps> = ({
   currentMonth,
-  format: monthFormat = 'MMM',
+  format: monthFormat = 'MMM yyyy',
+  weekStartsOn = 1,
   onChange,
   className,
   children,
 }) => {
+  const start = startOfWeek(currentMonth, { weekStartsOn });
+  const week = eachDayOfInterval({ start, end: endOfWeek(start, { weekStartsOn}) });
   const handlePrevClick = useCallback(() => onChange(addMonths(currentMonth, -1)), [
     onChange,
     currentMonth,
@@ -28,20 +33,35 @@ export const Header: FunctionComponent<HeaderProps> = ({
     currentMonth,
   ]);
   return (
-    <HeaderContainer className={className}>
-      {children ?? (
-        <>
-          <ChangeMonthButton onClick={handlePrevClick} />
-          <MonthName>{format(currentMonth, monthFormat)}</MonthName>
-          <ChangeMonthButton onClick={handleNextClick} nextMonth />
-        </>
-      )}
-    </HeaderContainer>
+    <>
+      <HeaderContainer className={className}>
+        {children ?? (
+          <>
+            <ChangeMonthButton onClick={handlePrevClick} />
+            <MonthName>{format(currentMonth, monthFormat)}</MonthName>
+            <ChangeMonthButton onClick={handleNextClick} nextMonth />
+          </>
+        )}
+      </HeaderContainer>
+      <DayContainer>
+        {week.map((date) => (
+          <Day key={date.getTime()}>{format(date, 'EEEEE')}</Day>
+        ))}
+      </DayContainer>
+    </>
   );
 };
 
 const HeaderContainer = styled.div`
-  ${({ theme }) => theme?.header?.container ?? defaultTheme.header.container}
+  ${({ theme }) => theme?.header?.topContainer ?? defaultTheme.header.topContainer}
+`;
+
+const DayContainer = styled.div`
+  ${({ theme }) => theme?.header?.dayContainer ?? defaultTheme.header.dayContainer}
+`;
+
+const Day = styled.div`
+  ${({ theme }) => theme?.header?.day ?? defaultTheme.header.day}
 `;
 
 export interface ChangeMonthButtonProps {

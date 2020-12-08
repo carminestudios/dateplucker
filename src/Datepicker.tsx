@@ -44,5 +44,5 @@ export const Datepicker: FunctionComponent<DatepickerProps> = ({
 Datepicker.displayName = 'Datepicker';
 
 const DatepickerContainer = styled.div`
-  ${({ theme }) => theme?.datepicker?.container ?? defaultTheme.datepicker.container}
+  ${({ theme }) => theme?.datepicker?.container ?? defaultTheme?.datepicker?.container}
 `;
