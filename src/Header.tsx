@@ -23,15 +23,21 @@ export const Header: FunctionComponent<HeaderProps> = ({
   children,
 }) => {
   const start = startOfWeek(currentMonth, { weekStartsOn });
-  const week = eachDayOfInterval({ start, end: endOfWeek(start, { weekStartsOn}) });
-  const handlePrevClick = useCallback(() => onChange(addMonths(currentMonth, -1)), [
-    onChange,
-    currentMonth,
-  ]);
-  const handleNextClick = useCallback(() => onChange(addMonths(currentMonth, 1)), [
-    onChange,
-    currentMonth,
-  ]);
+  const week = eachDayOfInterval({ start, end: endOfWeek(start, { weekStartsOn }) });
+  const handlePrevClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      onChange(addMonths(currentMonth, -1));
+    },
+    [onChange, currentMonth],
+  );
+  const handleNextClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      onChange(addMonths(currentMonth, 1));
+    },
+    [onChange, currentMonth],
+  );
   return (
     <>
       <HeaderContainer className={className}>
@@ -67,7 +73,7 @@ const Day = styled.div`
 export interface ChangeMonthButtonProps {
   nextMonth?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const ChangeMonthButton: FunctionComponent<ChangeMonthButtonProps> = ({
