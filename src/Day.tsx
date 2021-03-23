@@ -12,6 +12,7 @@ export type DayConfig = {
   isSelected?: boolean;
   current?: boolean;
   outOfContext?: boolean;
+  getClassName?: (d: Date) => string;
 };
 
 export interface DayProps extends DayConfig {
@@ -25,15 +26,20 @@ export const Day: FunctionComponent<DayProps> = ({
   isSelected,
   current,
   outOfContext,
+  getClassName,
   className,
   onClick,
   children,
 }) => {
   const handleClick = useCallback(() => onClick?.(date), [onClick]);
+  let finalClassName = className ?? '';
+  if (getClassName) {
+    finalClassName = `${finalClassName} ${getClassName(date)}`;
+  }
 
   return (
     <DayContainer
-      className={className}
+      className={finalClassName}
       disabled={disabled}
       outOfContext={outOfContext}
       current={current}
@@ -45,12 +51,14 @@ export const Day: FunctionComponent<DayProps> = ({
   );
 };
 
-const DayContainer = styled.div.withConfig(omitProps('disabled', 'current', 'isSelected', 'outOfContext'))<
-  Pick<DayConfig, 'disabled' | 'current' | 'outOfContext' | 'isSelected'>
->`
+const DayContainer = styled.div.withConfig(
+  omitProps('disabled', 'current', 'isSelected', 'outOfContext'),
+)<Pick<DayConfig, 'disabled' | 'current' | 'outOfContext' | 'isSelected'>>`
   ${({ theme }) => theme?.day?.container ?? defaultTheme.day.container};
   ${({ disabled, theme }) => (disabled ? theme?.day?.disabled ?? defaultTheme.day.disabled : null)}
   ${({ current, theme }) => (current ? theme?.day?.current ?? defaultTheme.day.current : null)}
-  ${({ outOfContext, theme }) => (outOfContext ? theme?.day?.outOfContext ?? defaultTheme.day.outOfContext : null)}
-  ${({ isSelected, theme }) => (isSelected ? theme?.day?.isSelected ?? defaultTheme.day.isSelected : null)}
+  ${({ outOfContext, theme }) =>
+    outOfContext ? theme?.day?.outOfContext ?? defaultTheme.day.outOfContext : null}
+  ${({ isSelected, theme }) =>
+    isSelected ? theme?.day?.isSelected ?? defaultTheme.day.isSelected : null}
 `;
